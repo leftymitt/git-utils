@@ -1,30 +1,32 @@
-#!/bin/sh
+#! /bin/bash
 
 # change the email and committer name in git history. run from the base of the 
 # repository. Variables: 
 #    OLD_EMAIL = the address to be changed
-#    CORRECT_EMAIL = address to change it to
-#    CURRENT_NAME = the name of the author associalted with CORRECT_EMAIL
+#    OLD_AUTHOR = the address to be changed
+#    NEW_EMAIL = address to change it to
+#    NEW_AUTHOR = the name of the author associalted with NEW_EMAIL
+
+OLD_AUTHOR="$1"
+OLD_EMAIL="$2"
+NEW_AUTHOR="$3"
+NEW_EMAIL="$4"
 
 [ -d .git/refs/original/ ] && rm -r .git/refs/original/
 
-git filter-branch --commit-filter '
-OLD_EMAIL=""
-CORRECT_NAME=""
-CORRECT_EMAIL=""
+git filter-branch --commit-filter \ '
+   if [ ${GIT_COMMITTER_EMAIL} = ${OLD_EMAIL} ]
+   then
+      export GIT_COMMITTER_NAME=${NEW_AUTHOR}
+      export GIT_COMMITTER_EMAIL={$NEW_EMAIL}
+   fi
+   if [ ${GIT_AUTHOR_EMAIL} = ${OLD_EMAIL} ]
+   then
+      export GIT_AUTHOR_NAME=${NEW_AUTHOR}
+      export GIT_AUTHOR_EMAIL=${NEW_EMAIL}
+   fi
 
-if [ "$GIT_COMMITTER_EMAIL" = "$OLD_EMAIL" ]
-	then
-	export GIT_COMMITTER_NAME="$CORRECT_NAME"
-	export GIT_COMMITTER_EMAIL="$CORRECT_EMAIL"
-fi
-if [ "$GIT_AUTHOR_EMAIL" = "$OLD_EMAIL" ]
-	then
-	export GIT_AUTHOR_NAME="$CORRECT_NAME"
-	export GIT_AUTHOR_EMAIL="$CORRECT_EMAIL"
-fi
+   git commit-tree ${@}' --tag-name-filter cat -- --branches --tags 
 
-git commit-tree "$@"
-' --tag-name-filter cat -- --branches --tags 
-
-rm -r .git/logs/
+rm -rf .git/logs/
+rm -rf "$(git rev-parse --git-dir)/refs/original/"
