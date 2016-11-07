@@ -1,4 +1,5 @@
 #! /bin/bash
+set -eu
 
 # change the email and committer name in git history. run from the base of the 
 # repository. Variables: 
