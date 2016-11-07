@@ -1,12 +1,16 @@
 #! /bin/bash
 set -eu
 
+################################################################################
 # change the email and committer name in git history. run from the base of the 
 # repository. Variables: 
+#
 #   OLD_EMAIL = the address to be changed
 #   OLD_AUTHOR = the address to be changed
 #   NEW_EMAIL = address to change it to
 #   NEW_AUTHOR = the name of the author associalted with NEW_EMAIL
+#
+################################################################################
 
 export OLD_AUTHOR="$1"
 export OLD_EMAIL="$2"
