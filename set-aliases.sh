@@ -6,11 +6,11 @@ set -eu
 #
 #   git sneaky: 
 #     set time zone to UTC and make the time of day random by taking 00:00:00
-#     UTC of that day and adding a random offset. 
+#     UTC of the current day and adding a random offset. 
 # 
 #   git backtrack:
 #     set time zone to UTC and make the time of day random by taking 00:00:00
-#     UTC of that day and adding a random offset. 
+#     UTC of the current day and adding a random offset. 
 #
 ################################################################################
 
