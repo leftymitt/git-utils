@@ -5,12 +5,14 @@ set -eu
 # set aliases to add to git. they are (so far): 
 #
 #   git sneaky: 
-#     set time zone to UTC and make the time of day random by taking 00:00:00
-#     UTC of the current day and adding a random offset. 
+#     wrapper for 'git commit' that sets the time zone to UTC and makes the
+#     time of day random by taking 00:00:00 UTC of the current day and adding a
+#     random offset. 
 # 
 #   git backtrack:
-#     set time zone to UTC and make the time of day random by taking 00:00:00
-#     UTC of the current day and adding a random offset. 
+#     wrapper for 'git revert' that sets the time zone to UTC and makes the
+#     time of day random by taking 00:00:00 UTC of the current day and adding a
+#     random offset. 
 #
 ################################################################################
 
